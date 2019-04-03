@@ -109,19 +109,13 @@ def initializeAndFind(subdomain):
             test.request("GET", "/")
             response = test.getresponse()
             if (response.status == 200) | (response.status == 302):
-                if subdomain == 1:
-                    url = "https://" + str(url)
-                else:
-                    url = "http://www." + str(url)
+                url = "http://www." + str(url)
             elif response.status == 301:
                 loc = response.getheader('Location')
                 url = loc.scheme + '://' + loc.netloc
             else:
                 url = "http://www." + str(url)
         except:
-            if subdomain == 1:
-                url = "https://" + str(url)
-            else:
                 url = "http://www." + str(url)
         try:
             br.open(url)
@@ -199,5 +193,5 @@ def findxss(firstDomains):
 
 
 # calling the function
-firstDomains = initializeAndFind(1)
+firstDomains = initializeAndFind()
 findxss(firstDomains)
