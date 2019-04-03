@@ -87,7 +87,7 @@ def testPayload(payload, p, link):
     br.back()
 
 
-def initializeAndFind(subdomain):
+def initializeAndFind():
 
     if not results.url:    # if the url has been passed or not
         color.log(logging.INFO, color.GREEN, 'Url not provided correctly')
