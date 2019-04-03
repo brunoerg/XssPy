@@ -87,7 +87,7 @@ def testPayload(payload, p, link):
     br.back()
 
 
-def initializeAndFind():
+def initializeAndFind(subdomain):
 
     if not results.url:    # if the url has been passed or not
         color.log(logging.INFO, color.GREEN, 'Url not provided correctly')
@@ -109,14 +109,20 @@ def initializeAndFind():
             test.request("GET", "/")
             response = test.getresponse()
             if (response.status == 200) | (response.status == 302):
-                url = "https://www." + str(url)
+                if subdomain == 1:
+                    url = "https://" + str(url)
+                else:
+                    url = "http://www." + str(url)
             elif response.status == 301:
                 loc = response.getheader('Location')
                 url = loc.scheme + '://' + loc.netloc
             else:
                 url = "http://www." + str(url)
         except:
-            url = "http://www." + str(url)
+            if subdomain == 1:
+                url = "https://" + str(url)
+            else:
+                url = "http://www." + str(url)
         try:
             br.open(url)
             for cookie in results.cookies:
@@ -193,5 +199,5 @@ def findxss(firstDomains):
 
 
 # calling the function
-firstDomains = initializeAndFind()
+firstDomains = initializeAndFind(1)
 findxss(firstDomains)
